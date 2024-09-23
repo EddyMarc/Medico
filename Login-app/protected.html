@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Protégée</title>
+</head>
+<body>
+    <h2>Bienvenue sur la page protégée !</h2>
+    <p>Vous êtes connecté avec succès.</p>
+
+    <!-- Bouton pour se déconnecter -->
+    <form id="logoutForm" action="/logout" method="POST">
+        <button type="submit">Se déconnecter</button>
+    </form>
+
+    <!-- Message de confirmation de déconnexion -->
+    <div id="logoutMessage" style="color:green;"></div>
+
+    <!-- JavaScript pour gérer la déconnexion -->
+    <script>
+        document.getElementById('logoutForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+            fetch('/logout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirection vers la page de connexion ou affichage d'un message
+                    document.getElementById('logoutMessage').innerText = 'Déconnecté avec succès';
+                    setTimeout(() => window.location.href = "login.html", 1000); // Redirection après 1 seconde
+                }
+            });
+        });
+    </script>
+</body>
+</html>
